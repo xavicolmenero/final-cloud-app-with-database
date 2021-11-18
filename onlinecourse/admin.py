@@ -13,7 +13,7 @@ class QuestionInline(admin.StackedInline):
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
-    fields = ('choice_content', 'is_correct')
+    fields = ('choice_text', 'is_correct')
     extra = 4
 
 class CourseAdmin(admin.ModelAdmin):
@@ -37,9 +37,9 @@ class QuestionAdmin(admin.ModelAdmin):
     get_lesson.admin_order_field = 'order'   
  
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ('get_question', 'choice_content', 'is_correct')
+    list_display = ('get_question', 'choice_text', 'is_correct')
     list_filter = ['is_correct']
-    search_fields = ['choice_content']
+    search_fields = ['choice_text']
     def get_question(self, obj):
         return obj.question.question_text
     get_question.short_description = 'Question'
