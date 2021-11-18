@@ -54,10 +54,7 @@
             <!-- <HINT> Use Bootstrap Collapse to hide exam first, more details could be found here
             https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp-->
 
-
-            <!-- <HINT> If user is authenticated, show course exam with a list of question -->
             {% if user.is_authenticated %}
-
                 <div>
                     <br><br>
                     <!--<a class="btn btn-info btn-block" data-toggle="collapse" href="#exam{{lesson.order|add:1}}" role="button" aria-expanded="false" aria-controls="collapseExample">-->
@@ -66,21 +63,10 @@
                     </a>
                 </div>
             
-<!--
-                {% for lesson in course.lesson_set.all %}
-                    {% for question in lesson.question_set.all %}
-                        <div class="card mt-1">
-                            <div class="card-header"><h5>Question: {{question.question_text}}</h5></div>
-                            
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-                    
-
-            {% endif %}
--->
                 <div id="exam" class="collapse">
-                    <form id="questionform" action="submit" method="post"></form>
+                    
+                    <form id="questionform" action="submit/" method="post">
+                    <!--<form id="questionform" action="submit" method="post"></form>-->
                         {% for lesson in course.lesson_set.all %}
                             {% for question in lesson.question_set.all %}                               
                                     <div class="card mt-1">
@@ -92,7 +78,7 @@
                                                 <label class="form-check-label">                                                  
                                                         <input type="checkbox" name="choice_{{choice.id}}"
                                                             class="form-check-input" id="{{choice.id}}"
-                                                            value="{{choice.id}}">{{ choice.choice_content }}
+                                                            value="{{choice.id}}">{{ choice.choice_text }}
                                                 </label>                                               
                                             </div>
                                             {% endfor %}
@@ -103,7 +89,7 @@
                         <input class="btn btn-success btn-block" type="submit" value="Submit">
                     </form>
                 </div>
-
+            {% endif %}
             <!--Check here to see more details Bootstrap checkbox
              https://www.w3schools.com/bootstrap4/bootstrap_forms_inputs.asp-->
     </div>

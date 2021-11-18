@@ -4,17 +4,17 @@ from .models import Course, Lesson, Instructor, Learner, Question, Choice
 
 class LessonInline(admin.StackedInline):
     model = Lesson
-    extra = 5
+    extra = 1
 
 class QuestionInline(admin.StackedInline):
     model = Question
-    extra = 5
+    extra = 1
 
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
-    fields = ('choice_content', 'is_correct')
-    extra = 4
+    fields = ('choice_text', 'is_correct')
+    extra = 1
 
 class CourseAdmin(admin.ModelAdmin):
     inlines = [LessonInline]
@@ -37,9 +37,9 @@ class QuestionAdmin(admin.ModelAdmin):
     get_lesson.admin_order_field = 'order'   
  
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ('get_question', 'choice_content', 'is_correct')
+    list_display = ('get_question', 'choice_text', 'is_correct')
     list_filter = ['is_correct']
-    search_fields = ['choice_content']
+    search_fields = ['choice_text']
     def get_question(self, obj):
         return obj.question.question_text
     get_question.short_description = 'Question'

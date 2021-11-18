@@ -97,7 +97,7 @@ class Enrollment(models.Model):
 class Question(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     question_text = models.CharField(null=False, max_length=1000)
-    question_grade = models.IntegerField(default=0)
+    question_grade = models.IntegerField(default=1)
 
     def is_get_score(self, selected_ids):
         all_answers = self.choice_set.filter(is_correct=True).count()
@@ -105,11 +105,13 @@ class Question(models.Model):
         if all_answers == selected_correct:
             return True
         else:
+
+
             return False
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_content = models.CharField(null=False, max_length=1000)
+    choice_text = models.CharField(null=False, max_length=1000)
     is_correct = models.BooleanField(default=False)
 
 class Submission(models.Model):
