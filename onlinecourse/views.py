@@ -141,6 +141,7 @@ def show_exam_result(request, course_id, submission_id):
     total_grade = 0
     total_questions = 0
     correct_questions = 0
+    base_grade_total = 0
 
     lessons = course.lesson_set.all()
 
@@ -148,13 +149,13 @@ def show_exam_result(request, course_id, submission_id):
         questions = lesson.question_set.all()
         for question in questions:
             total_questions += 1
+            base_grade_total += question.question_grade
             if question.is_get_score(choice_ids):
                 correct_questions += 1
                 total_grade += question.question_grade
 
-    #total_grade = 90
-
     grade_result = int(correct_questions / total_questions * 100)
+    #grade_result = int(total_grade / base_grade_total * 100)
 
     context = {}
     context['course'] = course
@@ -163,6 +164,8 @@ def show_exam_result(request, course_id, submission_id):
     context['questions'] = total_questions
     context['correct_questions'] = correct_questions
     context['selected'] = choices
+    context['total_grade'] = total_grade
+    context['base_grade_total'] = base_grade_total
 
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 

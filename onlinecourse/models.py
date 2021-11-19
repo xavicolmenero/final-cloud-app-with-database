@@ -105,8 +105,6 @@ class Question(models.Model):
         if all_answers == selected_correct:
             return True
         else:
-
-
             return False
 
 class Choice(models.Model):
